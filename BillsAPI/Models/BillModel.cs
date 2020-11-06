@@ -5,15 +5,14 @@ namespace BillsAPI.Models
 {
     public class BillModel
     {
-
         public Guid Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Campo Name é obrigatório")]
         public String Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Campo OriginalValue é obrigatório")]
         public double OriginalValue { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Campo OriginalValue é obrigatório")]
         public DateTime DueDate { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Campo PaymentDate é obrigatório")]
         public DateTime PaymentDate { get; set; }
 
         public virtual int DaysOverdue
