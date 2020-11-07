@@ -7,7 +7,7 @@ namespace BillsAPI.Context
     {
         public BillContext(DbContextOptions<BillContext> options) : base(options)
         {
-
+            Database.EnsureCreated();
         }
 
         public DbSet<BillModel> Bills { get; set; }
