@@ -1,18 +1,25 @@
-﻿using System;
+﻿using BillsAPI.DateTimeValidations;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BillsAPI.Models
 {
-    public class BillModel
+    public class BillModel: IValidatableObject
     {
         public Guid Id { get; set; }
-        [Required(ErrorMessage = "Campo Name é obrigatório")]
+
+        [DataType(DataType.Text, ErrorMessage =ErrorMessages.InvalidFormat)]
+        [Required(ErrorMessage = ErrorMessages.NameRequired)]
         public String Name { get; set; }
-        [Required(ErrorMessage = "Campo OriginalValue é obrigatório")]
+
+        [Range(0, double.MaxValue, ErrorMessage = ErrorMessages.OriginalValueMustBePositive)]
         public double OriginalValue { get; set; }
-        [Required(ErrorMessage = "Campo OriginalValue é obrigatório")]
+
+        [DataType(DataType.Date, ErrorMessage = ErrorMessages.InvalidFormat)]
         public DateTime DueDate { get; set; }
-        [Required(ErrorMessage = "Campo PaymentDate é obrigatório")]
+
+        [DataType(DataType.Date, ErrorMessage = ErrorMessages.InvalidFormat)]
         public DateTime PaymentDate { get; set; }
 
         public virtual int DaysOverdue
@@ -57,6 +64,14 @@ namespace BillsAPI.Models
                     return OriginalValue + penalty + interest;
                 }
             }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var currentYear = DateTime.Now.Year;
+            if (DueDate.Year < currentYear)
+                yield return new ValidationResult($"{ErrorMessages.InvalidDueDate}{currentYear}");
+            
         }
     }
 }

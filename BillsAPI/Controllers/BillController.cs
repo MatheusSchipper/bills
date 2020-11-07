@@ -70,19 +70,18 @@ namespace BillsAPI.Controllers
             {
                 var currentYear = DateTime.Now.Year;
                 var firstDateOfYear = new DateTime(currentYear, 1, 1);
-
-                if (billModel.DueDate == DateTime.MinValue)
-                    return BadRequest(RequiredFieldMessage("DueDate"));
+                if (String.IsNullOrEmpty(billModel.Name))
+                    return BadRequest(ErrorMessages.NameRequired);
+                else if (billModel.OriginalValue < 0)
+                    return BadRequest(ErrorMessages.OriginalValueMustBePositive);
                 else if (billModel.DueDate < firstDateOfYear)
-                    return BadRequest($"Só é possível inserir contas com data de vencimento a partir de 01/01/{currentYear}");
-                else if (billModel.PaymentDate == DateTime.MinValue)
-                    return BadRequest(RequiredFieldMessage("PaymentDate"));
+                    return BadRequest($"{ErrorMessages.InvalidDueDate}{currentYear}");
                 _context.Bills.Add(billModel);
                 var persisted = await _context.SaveChangesAsync();
                 if (persisted > 0)
                     return Ok();
                 else
-                    return BadRequest("Registro não salvo");
+                    return BadRequest(ErrorMessages.DataNotPersisted);
 
             } catch(Exception ex)
             {
@@ -109,10 +108,6 @@ namespace BillsAPI.Controllers
         private bool BillModelExists(Guid id)
         {
             return _context.Bills.Any(e => e.Id == id);
-        }
-
-        private String RequiredFieldMessage(String field) {
-            return $"Campo {field} é obrigatório!";
         }
     }
 }
