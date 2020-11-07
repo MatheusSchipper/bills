@@ -1,0 +1,516 @@
+{
+	"info": {
+		"_postman_id": "17fe28ea-6273-42fe-a7b0-a56e4395c3e5",
+		"name": "Bills API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Vazio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "15510a6f-6bdb-4d83-a663-b9c1c2f46413",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post sem campo Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bad12b01-7515-4318-809d-a5cf77cb2643",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"DueDate\": \"2020-11-05\",\r\n    \"PaymentDate\": \"2020-11-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post sem campo DueDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a21b70f1-c01e-4b91-a696-e0b90905f751",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Netflix\",\r\n    \"PaymentDate\": \"2020-11-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post com Campo DueDate antes do ano corrente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b67d97b8-92a4-4202-ad46-207c6fa49ac5",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Netflix\",\r\n    \"DueDate\": \"2019-11-05\",\r\n    \"PaymentDate\":\"2020-11-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post com campos válidos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1ab8237-aae0-47c7-9fc8-52b2d5d2fdb6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Netflix\",\r\n    \"OriginalValue\": 100,\r\n    \"DueDate\": \"2020-11-05\",\r\n    \"PaymentDate\":\"2020-11-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post com campos válidos - 1 dia de atraso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45245376-843c-494b-8f1d-0a09fa1b9405",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Amazon Prime\",\r\n    \"DueDate\": \"2020-11-05\",\r\n    \"OriginalValue\": 100.0, \r\n    \"PaymentDate\":\"2020-11-06\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post com campos válidos - 4 dias de atraso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fdecebce-44a7-41da-b545-4c3908f14ef5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Disney Plus\",\r\n    \"DueDate\": \"2020-11-05\",\r\n    \"OriginalValue\": 100.0, \r\n    \"PaymentDate\":\"2020-11-09\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post com campos válidos - 10 dias de atraso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ac8ecb6-3405-4ede-a90b-ffce7600dcd2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Globoplay\",\r\n    \"DueDate\": \"2020-11-05\",\r\n    \"OriginalValue\": 100.0, \r\n    \"PaymentDate\":\"2020-11-15\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post com campo Name null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d0d31eb-9c83-4e84-b8a6-662668a23980",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": null,\r\n    \"DueDate\": \"2020-11-05\",\r\n    \"PaymentDate\": \"2020-11-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post com campo Name Integer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5da6b803-f69f-4a7d-b8d9-925970f29c19",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": 1,\r\n    \"OriginalValue\": 100,\r\n    \"DueDate\": \"2020-11-05\",\r\n    \"PaymentDate\": \"2020-11-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post com campo OriginalValue inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb5e3fd6-7b1a-4ae2-b668-847b02490ffe",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Netflix\",\r\n    \"OriginalValue\": -100,\r\n    \"DueDate\": \"2020-11-05\",\r\n    \"PaymentDate\":\"2020-11-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bills",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8faf09d5-3b44-4bf8-b8fb-cc9e314cce39",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44312/api/Bill",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44312",
+					"path": [
+						"api",
+						"Bill"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

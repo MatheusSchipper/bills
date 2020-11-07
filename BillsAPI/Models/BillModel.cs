@@ -1,5 +1,4 @@
-﻿using BillsAPI.DateTimeValidations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -55,7 +54,7 @@ namespace BillsAPI.Models
                         penalty = OriginalValue * (3 / 100.0);
                         interest = OriginalValue * (DaysOverdue * 0.2 / 100);
                     }
-                    //Acima de 5 dias, aplicar multa de 5% e juro de 0,3% ao dia
+                    //Acima de 5 dias, aplicar multa de 5% e juros de 0,3% ao dia
                     else
                     {
                         penalty = OriginalValue * (5 / 100.0);

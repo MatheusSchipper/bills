@@ -8,27 +8,19 @@ using Xunit;
 
 namespace BillsAPI.Tests.Tests
 {
-    public class DatabaseTest : SqliteDatabaseInMemory
+    public class DatabaseTest : TestBase
     {
-        private int currentYear = DateTime.Now.Year;
-        private string testName = "Name";
-        private double testValidOriginalValue = 100.0;
-        private double testInvalidOriginalValue = -100.0;
-        private DateTime testInvalidDueDate = new DateTime(DateTime.Now.Year - 1, 1, 1);
-        private DateTime testValidDueDate = new DateTime(DateTime.Now.Year, 11, 6);
-        private DateTime testInvalidPaymentDate = new DateTime(2019, 2, 2);
-        private DateTime testValidPrePaymentDate = new DateTime(DateTime.Now.Year, 11, 5);
-        private DateTime testValidPosPaymentDate = new DateTime(DateTime.Now.Year, 11, 16);
 
-
+        [Trait(CategoryTrait, InitialStateOfDatabaseCategory)]
         [Fact(DisplayName ="Should verify if table is empty on start")]
         public void TableCreatedAndEmpty()
         {
             Assert.False(billContext.Bills.Any());
         }
 
-        [Fact(DisplayName = "Should throws an DbUpdateException when name is missing")]
-        public void ThrowsAnExcpetionWhenNameIsMissing()
+        [Trait(CategoryTrait, FieldRequiredCategory)]
+        [Fact(DisplayName = "billModel without field Name")]
+        public void ThrowsADbUpdateExcpetionWhenNameIsMissing()
         {
             var testBill = new BillModel();
             billContext.Bills.Add(testBill);
@@ -36,7 +28,8 @@ namespace BillsAPI.Tests.Tests
             Assert.Throws<DbUpdateException>(() => billContext.SaveChanges());
         }
 
-        [Fact(DisplayName = "Should return ValidationResult with InvalidDueDate message when due date is previous than current year")]
+        [Trait(CategoryTrait, InvalidFieldCategory)]
+        [Fact(DisplayName = "DueDate previous than current year")]
         public void ReturnValidationResultWithDueDateInvalidMessageWhenDueDateIsPreviousThanCurrentYear()
         {
 
@@ -50,7 +43,8 @@ namespace BillsAPI.Tests.Tests
             Assert.Contains(ValidateModel(testBill), result => result.ErrorMessage == $"{ErrorMessages.InvalidDueDate}{currentYear}");
         }
 
-        [Fact(DisplayName = "Should return ValidationResult with OriginalValueMustBePositive message when originalValue is negative")]
+        [Trait(CategoryTrait, InvalidFieldCategory)]
+        [Fact(DisplayName = "OriginalValue negative")]
         public void ReturnValidationResultWithDueOriginalValueMustBePositiveMessageWhenOriginalValueIsNegative()
         {
             var testBill = new BillModel
@@ -63,8 +57,46 @@ namespace BillsAPI.Tests.Tests
             Assert.Contains(ValidateModel(testBill), result => result.ErrorMessage == ErrorMessages.OriginalValueMustBePositive);
         }
 
+        [Trait(CategoryTrait, VerificationOfPersistedDataCategory)]
+        [Fact(DisplayName = "Verify if ID is persisted in the database")]
+        public void GenerateAnIDWhenABillModelIsCreatedAndSavedInTheDatabase()
+        {
+            var testBill = new BillModel
+            {
+                Name = testName,
+                OriginalValue = testValidOriginalValue,
+                DueDate = testValidDueDate,
+                PaymentDate = testValidPrePaymentDate,
+            };
+
+            billContext.Bills.Add(testBill);
+            billContext.SaveChanges();
+
+            Assert.NotEqual(Guid.Empty, testBill.Id);
+        }
+
+        [Trait(CategoryTrait, VerificationOfPersistedDataCategory)]
+        [Fact(DisplayName = "Verify if model is persisted in the database")]
+        public void GetTheSameRecordThaWasSavedInTheDatabase()
+        {
+            var testBill = new BillModel
+            {
+                Name = testName,
+                OriginalValue = testValidOriginalValue,
+                DueDate = testValidDueDate,
+                PaymentDate = testValidPrePaymentDate,
+            };
+
+            billContext.Bills.Add(testBill);
+            billContext.SaveChanges();
+
+            Assert.Equal(testBill, billContext.Bills.Find(testBill.Id));
+            Assert.Equal(1, billContext.Bills.Count());
+        }
+
+        #region Helpers
         /// <summary>
-        /// Método para realizar as validações do modelo. Tal qual é feito durante testes de API.
+        /// Método para chamar as validações de modelo. Tal qual é feito durante testes de API.
         /// </summary>
         /// <param name="billModel"></param>
         /// <returns></returns>
@@ -75,5 +107,6 @@ namespace BillsAPI.Tests.Tests
             Validator.TryValidateObject(billModel, validationContext, validationResults, true);
             return validationResults;
         }
+        #endregion
     }
 }
