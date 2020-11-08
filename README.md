@@ -62,6 +62,8 @@ Deve-se atentar que a cada atualização do contâiner Docker e consequente depl
 Para rodar essa aplicação localmente, você deve ter o amiente .NET e o ambiente Flutter (caso queira usar a interface desenvolvida, atentando que a interface em Flutter faz
 comunicação com o serviço hospedado no Heroku).
 
+Essa interface está disponível através do Github Pages, que pode ser acessado por este [link](https://matheusschipper.github.io/#/).
+
 
 ### Tecnologias
 
