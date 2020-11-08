@@ -26,7 +26,7 @@ namespace BillsAPI.Tests.Tests
         }
 
         [Trait(CategoryTrait, CalculationCategory)]
-        [Fact(DisplayName = "Should CorrectedValue be equal to 103,80 when OriginalValue = 100,00 , PaymentDate is 2 days after the DueDate ")]
+        [Fact(DisplayName = "Should CorrectedValue be equal to 103,80 when OriginalValue = 100,00 , PaymentDate is 4 days after the DueDate ")]
         public void CalculateCorrectValueWhenPaymentDateIs4DaysAfterDueDateAndOriginalValueIs100()
         {
             var daysOverdue = 4;
@@ -43,7 +43,7 @@ namespace BillsAPI.Tests.Tests
         }
 
         [Trait(CategoryTrait, CalculationCategory)]
-        [Fact(DisplayName = "Should CorrectedValue be equal to 108,00 when OriginalValue = 100,00 , PaymentDate is 2 days after the DueDate ")]
+        [Fact(DisplayName = "Should CorrectedValue be equal to 108,00 when OriginalValue = 100,00 , PaymentDate is 10 days after the DueDate ")]
         public void CalculateCorrectValueWhenPaymentDateIs10DaysAfterDueDateAndOriginalValueIs100()
         {
             var daysOverdue = 10;
