@@ -1,0 +1,11 @@
+{
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "traceId": "|7f4a71e8-42660df45b8576d5.",
+    "errors": {
+        "": [
+            "Dados não salvos"
+        ]
+    }
+}

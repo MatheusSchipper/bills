@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Netflix",
+        "originalValue": 50,
+        "dueDate": "2020-11-07T00:00:00",
+        "paymentDate": "2020-11-07T00:00:00",
+        "daysOverdue": 0,
+        "correctedValue": 50
+    },
+    {
+        "name": "Amazon Prime",
+        "originalValue": 10,
+        "dueDate": "2020-11-07T00:00:00",
+        "paymentDate": "2020-11-07T00:00:00",
+        "daysOverdue": 0,
+        "correctedValue": 10
+    },
+    {
+        "name": "Globoplay",
+        "originalValue": 100,
+        "dueDate": "2020-11-07T00:00:00",
+        "paymentDate": "2020-11-07T00:00:00",
+        "daysOverdue": 0,
+        "correctedValue": 100
+    }
+
+]
