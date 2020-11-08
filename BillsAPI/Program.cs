@@ -9,7 +9,6 @@ namespace BillsAPI
     {
         public static void Main(string[] args)
         {
-            //CreateHostBuilder(args).Build().Run();
             CreateWebHostBuilder(args).Build().Run();
         }
 

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using System;
 
@@ -18,6 +19,7 @@ namespace BillsAPI
         }
 
         public IConfiguration Configuration { get; }
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -25,14 +27,22 @@ namespace BillsAPI
             var connection = Configuration["SqliteConnectionString"];
             services.AddDbContext<BillContext>(options => options.UseSqlite(connection));
             services.AddControllers();
-            //Configuração do gerador de documentação de API do Swagger.
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().WithHeaders(HeaderNames.ContentType);
+                });
+            });
+            //ConfiguraÃ§Ã£o do gerador de documentaÃ§Ã£o de API do Swagger.
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "BillsAPI",
                     Version = "v1",
-                    Description = $"API REST do serviço de listagem e cadastro de contas a pagar. Publicado em: {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}",
+                    Description = $"API REST do serviÃ§o de listagem e cadastro de contas a pagar. Publicado em: {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}",
                     Contact = new OpenApiContact
                     {
                         Name = "Matheus Schipper Diogo",
@@ -50,7 +60,7 @@ namespace BillsAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            //Ativação do swagger
+            //Ativaï¿½ï¿½o do swagger
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
@@ -61,6 +71,7 @@ namespace BillsAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
