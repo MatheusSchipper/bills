@@ -47,6 +47,7 @@ class BillElementWidget extends StatelessWidget {
                         .headline6
                         .copyWith(color: textColor),
                     textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),
