@@ -63,6 +63,7 @@ Para rodar essa aplicação localmente, você deve ter o amiente .NET e o ambien
 comunicação com o serviço hospedado no Heroku).
 
 Essa interface está disponível através do Github Pages, que pode ser acessado por este [link](https://matheusschipper.github.io/#/).
+A documentação da API foi feita utilizando o [Swagger](https://swagger.io/) e está disponível [aqui](https://msdbillsapi.herokuapp.com/swagger/index.html).
 
 
 ### Tecnologias
@@ -74,6 +75,7 @@ Essa interface está disponível através do Github Pages, que pode ser acessado
  - [xUnit](https://xunit.net/)
  - [Heroku](https://www.heroku.com/)
  - [Docker](https://www.docker.com/)
+ - [Swagger](https://swagger.io/)
  
 
 ### Autor
