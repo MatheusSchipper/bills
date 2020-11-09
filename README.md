@@ -62,8 +62,13 @@ Deve-se atentar que a cada atualização do contâiner Docker e consequente depl
 Para rodar essa aplicação localmente, você deve ter o amiente .NET e o ambiente Flutter (caso queira usar a interface desenvolvida, atentando que a interface em Flutter faz
 comunicação com o serviço hospedado no Heroku).
 
-Essa interface está disponível através do Github Pages, que pode ser acessado por este [link](https://matheusschipper.github.io/#/).
+### Considerações
+
+A interface em Flutter está disponível através do Github Pages, que pode ser acessado por este [link](https://matheusschipper.github.io/#/).
 A documentação da API foi feita utilizando o [Swagger](https://swagger.io/) e está disponível [aqui](https://msdbillsapi.herokuapp.com/swagger/index.html).
+
+Foi constatado que, po usar o plano free do Heroku, caso em 30 minutos não haja nenhuma interação, a aplicação é parada, ficando disponível novamente ao acessar o 
+link normalmente. Por isso, infelizmente, o banco é resetado caso a aplicação pare.
 
 
 ### Tecnologias
